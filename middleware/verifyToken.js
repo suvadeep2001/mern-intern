@@ -31,4 +31,16 @@ const verifyTokenAndAuthorization = (req,res,next) => {
     })
 }
 
-module.exports = {verifyToken,verifyTokenAndAuthorization};
+const verifyTokenAndAdmin = (req,res,next) => {
+    verifyToken(req,res,()=>{
+        if(req.user.isAdmin)
+    {
+     next();   
+    }
+    else{
+        res.status(403).send("You are not allowed to do this")
+    }
+    })
+}
+
+module.exports = {verifyToken,verifyTokenAndAuthorization,verifyTokenAndAdmin};
